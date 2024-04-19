@@ -12,7 +12,7 @@
 			{{#each list}}
 			<li onclick="fieldSelect.change(this);
 			
-			{{../action}}({{value}})
+			{{../action}} ('{{../name}}', {{value}})
 			" class="field__option">
 				{{text}}
 			</li>

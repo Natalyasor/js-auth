@@ -63,13 +63,33 @@ class SignupForm extends Form {
         return this.FIELD_ERROR.NOT_CONFIRM
     }
   }
-  submit = () => {
+  submit = async () => {
     if (this.disabled === true) {
       this.validateAll()
     } else {
       console.log(this.value)
 
       this.setAlert('progress', 'Завантаження...')
+
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: this.convertData(),
+        })
+
+        const data = await res.json()
+
+        if (res.ok) {
+          this.setAlert('success', data.message)
+        } else {
+          this.setAlert('error', data.message)
+        }
+      } catch (error) {
+        this.setAlert('error', error.message)
+      }
     }
   }
 
