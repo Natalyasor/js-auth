@@ -33,8 +33,8 @@ export class Form {
     const span = document.querySelector(
       `.form__error[name="${name}"]`,
     )
-    const input = document.querySelector(
-      `.field__input[name="${name}"]`,
+    const field = document.querySelector(
+      `.validation[name="${name}"]`,
     )
     if (span) {
       span.classList.toggle(
