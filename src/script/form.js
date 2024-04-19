@@ -1,9 +1,9 @@
 export const REG_EXP_EMAIL = new RegExp(
-  '^[A-Za-z0-9](([a-zA-Z0-9,=.!-#|$%^&*+/?_`{}~]+)*)@(?:[0-9a-zA-Z-]+.)+[a-zA-Z]{2,9}$',
+  /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
 )
 
 export const REG_EXP_PASSWORD = new RegExp(
-  '^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!#@$%&/()=?*-+-_.:;,][{}^]).{8,32}',
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g,
 )
 
 export class Form {
@@ -81,10 +81,23 @@ export class Form {
 
       if (error) {
         this.setError(name, error)
-        disabled = true
       }
     })
+  }
 
-    this.disabled = disabled
+  setAlert = (status, text) => {
+    const el = document.querySelector(`.alert`)
+
+    if (status === 'progress') {
+      el.className = 'alert alert--progress'
+    } else if (status === 'success') {
+      el.className = 'alert alert--success'
+    } else if (status === 'error') {
+      el.className = ' alert alert--error'
+    } else {
+      el.className = 'alert alert--disabled'
+    }
+
+    if (text) el.innerText = text
   }
 }

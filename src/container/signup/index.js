@@ -68,8 +68,21 @@ class SignupForm extends Form {
       this.validateAll()
     } else {
       console.log(this.value)
+
+      this.setAlert('progress', 'Завантаження...')
     }
+  }
+
+  convertData = () => {
+    return JSON.stringify({
+      [this.FIELD_NAME.EMAIL]:
+        this.value[this.FIELD_NAME.EMAIL],
+      [this.FIELD_NAME.PASSWORD]:
+        this.value[this.FIELD_NAME.PASSWORD],
+      [this.FIELD_NAME.ROLE]:
+        this.value[this.FIELD_NAME.ROLE],
+    })
   }
 }
 
-window.signupForm = SignupForm
+window.signupForm = new SignupForm()
