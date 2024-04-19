@@ -64,8 +64,11 @@ class SignupForm extends Form {
     }
   }
   submit = () => {
-    this.checkDisabled()
-    console.log(this.value)
+    if (this.disabled === true) {
+      this.validateAll()
+    } else {
+      console.log(this.value)
+    }
   }
 }
 

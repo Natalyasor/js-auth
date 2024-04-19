@@ -12,20 +12,29 @@ export class Form {
 
   value = {}
   error = {}
-  disabled = false
+  disabled = true
 
   change = (name, value) => {
+    const error = this.validate(name, value)
+
     this.value[name] = value
 
-    this.checkValid(name, value)
+    if (error) {
+      this.setError(name, error)
+      this.error[name] = error
+    } else {
+      this.setError(name, null)
+      delete this.error[name]
+    }
+    this.checkDisabled()
   }
 
   setError = (name, error) => {
     const span = document.querySelector(
       `.form__error[name="${name}"]`,
     )
-    const field = document.querySelector(
-      `.validation[name="${name}"]`,
+    const input = document.querySelector(
+      `.field__input[name="${name}"]`,
     )
     if (span) {
       span.classList.toggle(
@@ -43,24 +52,15 @@ export class Form {
     }
   }
 
-  checkValid = (name, value) => {
+  checkDisabled = () => {
     let disabled = false
 
     Object.values(this.FIELD_NAME).forEach((name) => {
-      const error = this.validate(name, this.value[name])
-
-      if (error) {
-        this.setError(name, error)
+      if (
+        this.error[name] ||
+        this.value[name] === undefined
+      ) {
         disabled = true
-        this.error[name] = error
-      }
-
-      if (error) {
-        this.setError(name, error)
-        this.error[name] = error
-      } else {
-        this.setError(name, null)
-        delete this.error[name]
       }
     })
 
@@ -72,6 +72,19 @@ export class Form {
         Boolean(disabled),
       )
     }
+    this.disabled = disabled
+  }
+
+  validateAll = () => {
+    Object.values(this.FIELD_NAME).forEach((name) => {
+      const error = this.validate(name, this.value[name])
+
+      if (error) {
+        this.setError(name, error)
+        disabled = true
+      }
+    })
+
     this.disabled = disabled
   }
 }
