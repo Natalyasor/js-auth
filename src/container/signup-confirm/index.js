@@ -2,6 +2,7 @@ import { Form } from '../../script/form'
 import {
   getTokenSession,
   saveSession,
+  getSession,
 } from '../../script/session'
 
 class SignupConfirmForm extends Form {
@@ -76,4 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
       location.assign('/')
     }
   } catch (e) {}
+  document
+    .querySelector('#renew')
+    .addEventListener('click', (e) => {
+      e.preventDefault()
+
+      const session = getSession()
+      location.assign(
+        `/signup-confirm?renew=true&email=${session.user.email}`,
+      )
+    })
 })

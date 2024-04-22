@@ -32,15 +32,22 @@ export const loadSession = () => {
 
 export const getTokenSession = () => {
   try {
+    const session = getSession()
+
+    return session ? session.token : null
+  } catch (er) {
+    console.log(er)
+    return null
+  }
+}
+
+export const getSession = () => {
+  try {
     const session =
       JSON.parse(localStorage.getItem(SESSION_KEY)) ||
       window.session
 
-    if (session) {
-      return session.token
-    } else {
-      return null
-    }
+    return session || null
   } catch (er) {
     console.log(er)
     return null
