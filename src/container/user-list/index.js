@@ -13,7 +13,7 @@ class UserList extends List {
   loadData = async () => {
     this.updateStatus(this.STATE.LOADING)
 
-    return null
+    //return null
 
     try {
       const res = await fetch('/user-list-data', {
