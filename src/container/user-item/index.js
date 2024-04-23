@@ -1,5 +1,5 @@
-import { List } from '/../../script/list'
-import { USER_ROLE } from '/../../script/user'
+import { List } from '../../script/list'
+import { USER_ROLE } from '../../script/user'
 
 class UserItem extends List {
   constructor() {

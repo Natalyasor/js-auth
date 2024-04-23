@@ -1,5 +1,5 @@
-import { List } from '/../../script/list'
-import { USER_ROLE } from '/../../script/user'
+import { List } from '../../script/list'
+import { USER_ROLE } from '../../script/user'
 class UserList extends List {
   constructor() {
     super()
@@ -13,7 +13,7 @@ class UserList extends List {
   loadData = async () => {
     this.updateStatus(this.STATE.LOADING)
 
-    //return null
+    return null
 
     try {
       const res = await fetch('/user-list-data', {
